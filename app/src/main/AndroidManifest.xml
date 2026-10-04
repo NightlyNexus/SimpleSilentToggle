@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+
+  <application
+      android:name=".SimpleSilentToggleApplication"
+      android:allowBackup="true"
+      android:enableOnBackInvokedCallback="true"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/Theme.SimpleSilentWidget"
+      tools:targetApi="33">
+    <activity
+        android:name=".InfoActivity"
+        android:excludeFromRecents="true"
+        android:exported="true"
+        android:theme="@android:style/Theme.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.INFO" />
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".FallbackInfoActivity"
+        android:excludeFromRecents="true"
+        android:exported="false"
+        android:theme="@style/Theme.AlmostNoDisplay">
+    </activity>
+
+    <activity
+        android:name=".ConfigurationActivity"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
+
+    <receiver
+        android:name=".SimpleSilentToggleAppWidgetProvider"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+
+      <meta-data
+          android:name="android.appwidget.provider"
+          android:resource="@xml/app_widget_provider" />
+    </receiver>
+
+    <receiver
+        android:name=".ToggleClickedReceiver"
+        android:exported="false" />
+  </application>
+</manifest>

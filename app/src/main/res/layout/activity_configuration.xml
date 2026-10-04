@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/option_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/option_normal" />
+
+    <CheckBox
+        android:id="@+id/option_vibrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/option_vibrate" />
+
+    <CheckBox
+        android:id="@+id/option_silent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/option_silent" />
+
+    <Button
+        android:id="@+id/add_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_widget_button" />
+  </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="widget_background">#BB444444</color>
+
+  <dimen name="widget_corners_radius">0dp</dimen>
+
+  <!-- Check the ringer status and update the widgets automatically every 30 minutes. -->
+  <integer name="widget_update_period_millis">1800000</integer>
+
+  <string name="widget_description">Change your ringer volume</string>
+  <string name="widget_no_change_toast">Updating widget state. No volume change.</string>
+  <string name="content_description_normal">Normal ringer mode</string>
+  <string name="content_description_vibrate">Vibrate ringer mode</string>
+  <string name="content_description_silent">Silent ringer mode</string>
+</resources>
