@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="app_name">Simple Silent Toggle</string>
-  <string name="permission_toast">To change volume states, grant Simple Silent Toggle ringer mode access</string>
-</resources>

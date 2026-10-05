@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="primary">#FFBF6D</color>
+  <color name="accent">#989898</color>
+
+  <string name="app_name">Simple Silent Toggle</string>
+  <string name="permission_toast">To change volume states, grant Simple Silent Toggle ringer mode access</string>
 
   <style name="Theme.SimpleSilentToggle" parent="Theme.Material3.DayNight.NoActionBar">
     <item name="android:windowTranslucentStatus">true</item>
