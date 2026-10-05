@@ -28,7 +28,7 @@
         android:name=".FallbackInfoActivity"
         android:excludeFromRecents="true"
         android:exported="false"
-        android:theme="@style/Theme.AlmostNoDisplay"></activity>
+        android:theme="@style/Theme.AlmostNoDisplay" />
 
     <activity
         android:name=".ConfigurationActivity"
