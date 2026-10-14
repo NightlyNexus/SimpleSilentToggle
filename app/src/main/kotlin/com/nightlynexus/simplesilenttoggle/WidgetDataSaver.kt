@@ -8,8 +8,8 @@ internal class WidgetDataSaver(
 ) {
   fun getRingerStates(appWidgetId: Int): Map<RingerState, RingerState> {
     val encodedKey = encodeKey(appWidgetId)
-    val encodedRingerStates = sharedPreferences.getString(encodedKey, "")!!
-    if (encodedRingerStates.isEmpty()) {
+    val encodedRingerStates = sharedPreferences.getString(encodedKey, null)
+    if (encodedRingerStates == null) {
       return defaultRingerStateMap()
     }
     val decodedRingerStates = decodeRingerStates(encodedRingerStates)
@@ -68,15 +68,21 @@ internal class WidgetDataSaver(
     return ringerStates.joinToString(",")
   }
 
+  // Returns null if and only if the user manually mangled his saved data.
   private fun decodeRingerStates(encodedRingerStates: String): List<RingerState>? {
-    return encodedRingerStates.split(",").map {
+    val decodedRingerStates = encodedRingerStates.split(",").map {
       try {
         RingerState.valueOf(it)
-      } catch (e: IllegalArgumentException) {
+      } catch (_: IllegalArgumentException) {
         // The user manually mangled his saved data.
         return null
       }
     }
+    if (decodedRingerStates.size < 2) {
+      // The user manually mangled his saved data.
+      return null
+    }
+    return decodedRingerStates
   }
 
   private fun ringerStatesMap(ringerStates: List<RingerState>): Map<RingerState, RingerState> {
