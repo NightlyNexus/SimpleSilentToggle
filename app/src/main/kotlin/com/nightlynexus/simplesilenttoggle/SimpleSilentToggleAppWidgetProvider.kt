@@ -37,10 +37,12 @@ internal fun updateAllAppWidgetIds(
   context: Context
 ) {
   val appWidgetManager = context.getSystemService(AppWidgetManager::class.java)
+  val audioManager = context.getSystemService(AudioManager::class.java)
   val allAppWidgetIds = allAppWidgetIds(context, appWidgetManager)
   updateAppWidgetIds(
     context,
     appWidgetManager,
+    audioManager,
     allAppWidgetIds
   )
 }
@@ -48,9 +50,9 @@ internal fun updateAllAppWidgetIds(
 private fun updateAppWidgetIds(
   context: Context,
   appWidgetManager: AppWidgetManager,
+  audioManager: AudioManager,
   appWidgetIds: IntArray
 ) {
-  val audioManager = context.getSystemService(AudioManager::class.java)
   val ringerMode = audioManager.ringerMode
   val currentRingerState: RingerState
   @DrawableRes val currentIconId: Int
@@ -239,38 +241,31 @@ class ToggleClickedReceiver : BroadcastReceiver() {
           nextRingerState = ringerStates.iterator().next().key
         }
 
-        @DrawableRes val nextIconId: Int
-        @StringRes val nextIconContentDescriptionId: Int
         val nextRingerMode: Int
         when (nextRingerState) {
           RingerState.Normal -> {
-            nextIconId = R.drawable.ringer_mode_normal
-            nextIconContentDescriptionId = R.string.content_description_normal
             nextRingerMode = AudioManager.RINGER_MODE_NORMAL
           }
 
           RingerState.Vibrate -> {
-            nextIconId = R.drawable.ringer_mode_vibrate
-            nextIconContentDescriptionId = R.string.content_description_vibrate
             nextRingerMode = AudioManager.RINGER_MODE_VIBRATE
           }
 
           RingerState.Silent -> {
-            nextIconId = R.drawable.ringer_mode_silent
-            nextIconContentDescriptionId = R.string.content_description_silent
             nextRingerMode = AudioManager.RINGER_MODE_SILENT
             notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
           }
         }
 
         audioManager.ringerMode = nextRingerMode
+
+        // Get the ringer mode from AudioManager again because Android might not really apply
+        // our set ringer mode.
         updateAppWidgetIds(
           context,
           appWidgetManager,
-          allAppWidgetIds,
-          nextIconId,
-          nextIconContentDescriptionId,
-          nextRingerState
+          audioManager,
+          allAppWidgetIds
         )
       } else {
         ringerPermissionGrantedReceiverRegister.unregisterRingerPermissionGrantedReceiver()
@@ -316,9 +311,11 @@ class SimpleSilentToggleAppWidgetProvider : AppWidgetProvider() {
     appWidgetManager: AppWidgetManager,
     appWidgetIds: IntArray
   ) {
+    val audioManager = context.getSystemService(AudioManager::class.java)
     updateAppWidgetIds(
       context,
       appWidgetManager,
+      audioManager,
       appWidgetIds
     )
   }
