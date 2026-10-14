@@ -39,6 +39,10 @@
     </activity>
 
     <receiver
+        android:name=".WidgetPinnedReceiver"
+        android:exported="false" />
+
+    <receiver
         android:name=".SimpleSilentToggleAppWidgetProvider"
         android:exported="true">
       <intent-filter>
